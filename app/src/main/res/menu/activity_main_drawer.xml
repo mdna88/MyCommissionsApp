@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/commissions"
+            android:icon="@drawable/ic_monetization_on_black_18dp"
+            android:title="My Commissions"
+            android:fontFamily="sans-serif-condensed"/>
+        <item
+            android:id="@+id/news"
+            android:icon="@drawable/ic_public_black_18dp"
+            android:title="News &amp; Articles"
+            android:fontFamily="sans-serif-condensed"/>
+
+    </group>
+
+    <item android:title="Social">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
+                android:title="Share"
+                android:fontFamily="sans-serif-condensed"/>
+
+        </menu>
+    </item>
+
+</menu>

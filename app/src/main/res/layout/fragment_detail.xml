@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0E0E0"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:id="@+id/detail_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:elevation="6dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="32dp"
+            android:background="#F5F5F5"
+            android:paddingTop="16dp"
+            android:layout_marginBottom="4dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sale Item:"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-condensed"
+
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/detail_sale_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plan 49.99"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="42sp"/>
+
+            <TextView
+                android:id="@+id/detail_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Value Per Sale"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/detail_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:text="quantity"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/total_commission_fab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:elevation="2dp"
+            android:paddingTop="24dp"
+            android:background="#F5F5F5"
+            android:paddingBottom="36dp"
+            android:paddingLeft="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Commissions From Item:"
+                android:fontFamily="sans-serif-condensed"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/detail_total_commissions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$371.25"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="32sp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorAccent"
+        android:src="@drawable/ic_delete_white_24dp"
+        app:layout_anchor="@id/detail_layout"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorAccent"
+        android:src="@drawable/ic_clear_white_24dp"
+        app:layout_anchor="@id/total_commission_fab"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">MyCommissions</string>
+    <string name="webHose_key">5bcfc50b-c3d8-4cf0-b11c-a996d01b458f</string>
+
+    <string name="what_i_make">Commission: $</string>
+    <string name="what_i_make_percentage">Commission:</string>
+    <string name="commission_name">Item: </string>
+    <string name="quantity_sold">Sold: </string>
+    <string name="sold_one">+1</string>
+    <string name="sold_quantity">+</string>
+
+    <string name="commission_name_hint">Enter name of item</string>
+    <string name="commission_value_hint">Enter value per sale</string>
+    <string name="commission_add_button">Add Item</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="error_select_commission_type">You must select a commission type</string>
+    <string name="error_select_name_value_type">You must provide a name and value for item</string>
+
+    <string name="action_settings">Settings</string>
+
+</resources>
