@@ -3,7 +3,6 @@ package com.narvin.android.commissionsapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -30,7 +29,11 @@ public class WebFragment extends Fragment {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
+
+        // Hide option menu for this fragment
         menu.findItem(R.id.action_delete_all).setVisible(false);
+        menu.findItem(R.id.action_clear_all).setVisible(false);
+
         super.onPrepareOptionsMenu(menu);
     }
 

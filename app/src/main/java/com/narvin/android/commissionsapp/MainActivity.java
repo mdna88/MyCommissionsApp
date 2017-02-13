@@ -1,32 +1,24 @@
 package com.narvin.android.commissionsapp;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.preference.PreferenceManager;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.design.widget.FloatingActionButton;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
-
-import static android.R.attr.id;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
-    SQLHelper mSQLHelper;
     NavigationView navigationView = null;
     Toolbar toolbar = null;
 
@@ -62,9 +54,6 @@ public class MainActivity extends AppCompatActivity implements
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //SQLLite manager class instantiation
-        mSQLHelper = new SQLHelper(this);
-
     }
 
     /**
@@ -96,12 +85,16 @@ public class MainActivity extends AppCompatActivity implements
 
                             public void onClick(DialogInterface dialog, int whichButton) {
 
-                                //Deletes entire database
-                                mSQLHelper.deleteAllEntries();
+                                getContentResolver().delete(
+                                        CommissionContract.CommissionEntry.CONTENT_URI,
+                                        null,
+                                        null
+                                );
+
                                 //Resets the listView
                                 fragment.fetchData();
 
-                                Toast.makeText(MainActivity.this, "Items Deleted",
+                                Toast.makeText(MainActivity.this, "All Items Deleted",
                                         Toast.LENGTH_SHORT).show();
 
                             }
@@ -120,10 +113,20 @@ public class MainActivity extends AppCompatActivity implements
 
                             public void onClick(DialogInterface dialog, int whichButton) {
 
-                                mSQLHelper.clearAllQuantity();
+                                ContentValues values = new ContentValues();
+                                values.put(CommissionContract.CommissionEntry.QUANTITY, 0);
+
+                                getContentResolver().update(
+                                        CommissionContract.CommissionEntry.CONTENT_URI,
+                                        values,
+                                        null,
+                                        null
+                                );
+
+                                // Reset the listView
                                 fragment.fetchData();
 
-                                Toast.makeText(MainActivity.this, "Items Reset",
+                                Toast.makeText(MainActivity.this, "All Items Reset",
                                         Toast.LENGTH_SHORT).show();
                             }
                         })

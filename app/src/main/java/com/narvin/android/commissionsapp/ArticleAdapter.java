@@ -38,7 +38,7 @@ public class ArticleAdapter extends ArrayAdapter<ArticleContract> {
     @Override
     public View getView(int position, View convertedView, ViewGroup parent) {
 
-        //posotion of listItem within listView
+        //position of listItem within listView
         final int itemPosition = position;
 
         //Check current listItem status

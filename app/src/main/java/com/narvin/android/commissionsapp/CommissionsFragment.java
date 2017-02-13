@@ -27,14 +27,14 @@ import java.util.Locale;
 public class CommissionsFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
+    /**
+     * Identifier for the commission data loader
+     */
+    private static final int COMMISSION_LOADER = 0;
     private View parentView;
     private View rootView;
     private MyCursorAdapter mCursorAdapter;
     private ListView mListView;
-
-    /** Identifier for the commission data loader */
-    private static final int COMMISSION_LOADER = 0;
-
     /** Projection for content provider */
     private String[] projection = {
             CommissionContract.CommissionEntry.KEY_ID,
@@ -106,12 +106,15 @@ public class CommissionsFragment extends Fragment implements
                         CommissionContract.CommissionEntry.TYPE));
                 double value = cursor.getDouble(cursor.getColumnIndex(
                         CommissionContract.CommissionEntry.COMMISSION_VALUE));
+                double quantity = cursor.getDouble(cursor.getColumnIndex(
+                        CommissionContract.CommissionEntry.QUANTITY));
 
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", posId);
                 bundle.putString("name", name);
                 bundle.putString("type", type);
                 bundle.putDouble("value", value);
+                bundle.putDouble("quantity", quantity);
 
                 DetailFragment fragment = new DetailFragment();
                 fragment.setArguments(bundle);
@@ -129,7 +132,7 @@ public class CommissionsFragment extends Fragment implements
     }
 
     /**
-     * Method with algorithm that calculates total commissions and displays it
+     * Method with simple algorithm that calculates total commissions and displays it
      */
     public void refreshTotalCommissions() {
 
@@ -174,7 +177,6 @@ public class CommissionsFragment extends Fragment implements
 
         totalCommissionsView.setText("Total Commissions: $" + NumberFormat.getNumberInstance(Locale.US).format(totalCommissions));
 
-        totalCommissions = 0;
     }
 
     @Override

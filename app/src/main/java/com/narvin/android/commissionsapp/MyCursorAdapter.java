@@ -1,18 +1,12 @@
 package com.narvin.android.commissionsapp;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
-import android.os.Build;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,18 +14,9 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
-
-import static android.R.attr.id;
-import static android.R.id.edit;
-import static android.content.Context.ALARM_SERVICE;
 
 /**
- * Created by michaeldnarvaez on 7/17/16.
+ * Custom adapter to populate the commission items list
  */
 public class MyCursorAdapter extends CursorAdapter {
 
@@ -70,7 +55,7 @@ public class MyCursorAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         holder = new ViewHolder();
-        View v = null;
+        View v;
 
 
         if (cursor.getString(cursor.getColumnIndex("type")).equals("0")) {
@@ -117,7 +102,7 @@ public class MyCursorAdapter extends CursorAdapter {
         String nameString = "" + commissionName;
         holder.nameView.setText(nameString);
 
-        String valueString = null;
+        String valueString;
         if (commissionType == 0) {
             valueString = context.getResources().getString(R.string.what_i_make)
                     + commissionValue;
@@ -126,8 +111,6 @@ public class MyCursorAdapter extends CursorAdapter {
                     + " " + commissionValue + "%";
         }
 
-
-        //TODO: Add on data change listener fou ui update
         holder.valueView.setText(valueString);
 
         String quantityString = context.getResources().getString(R.string.quantity_sold)
@@ -161,7 +144,7 @@ public class MyCursorAdapter extends CursorAdapter {
     }
 
     //Displays Dialog, takes input from user for new sale and updates entry quantity
-    public String showAmountDialog(Context parent, int id, int quantity, TextView v) {
+    private String showAmountDialog(Context parent, int id, int quantity, TextView v) {
 
         final Context context = parent;
         final int rowId = id;
@@ -172,7 +155,7 @@ public class MyCursorAdapter extends CursorAdapter {
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+        final View dialogView = inflater.inflate(R.layout.custom_dialog, (ViewGroup) v.getRootView());
         dialogBuilder.setView(dialogView);
 
         final EditText edt = (EditText) dialogView.findViewById(R.id.edit1);

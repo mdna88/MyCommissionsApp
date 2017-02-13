@@ -13,17 +13,13 @@ import android.util.Log;
 import static com.narvin.android.commissionsapp.CommissionContract.CommissionEntry.TABLE_NAME;
 
 /**
- * Created by michaeldnarvaez on 2/9/17.
+ * Content provider for the Commissions SQLite Database
  */
 public class CommissionsProvider extends ContentProvider {
-
-    //DataBaseHelper Object
-    private SQLHelper.DBHelper mDBHelper;
 
     //Uri matcher integers
     private static final  int COMMISSIONS = 100;
     private static final  int COMMISSIONS_ID = 101;
-
     //Uri Matcher Object
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -39,6 +35,9 @@ public class CommissionsProvider extends ContentProvider {
                 CommissionContract.PATH_COMMISSIONS + "/#", COMMISSIONS_ID);
 
     }
+
+    //DataBaseHelper Object
+    private SQLHelper.DBHelper mDBHelper;
 
     @Override
     public boolean onCreate() {
@@ -69,8 +68,6 @@ public class CommissionsProvider extends ContentProvider {
                 cursor = dataBase.query(TABLE_NAME, projection,
                         selection, selectionArgs, null, null, sortOrder);
 
-                cursor.setNotificationUri(getContext().getContentResolver(), uri);
-
                 break;
 
             case COMMISSIONS_ID:
@@ -80,8 +77,6 @@ public class CommissionsProvider extends ContentProvider {
 
                 cursor = dataBase.query(TABLE_NAME, projection,
                         selection, selectionArgs, null, null, sortOrder);
-
-                cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
                 break;
 
@@ -115,7 +110,11 @@ public class CommissionsProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case COMMISSIONS:
-                return insertNewItem(uri, values);
+
+                Uri resultUri = insertNewItem(uri, values);
+                getContext().getContentResolver().notifyChange(uri, null);
+
+                return resultUri;
             default:
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
         }
@@ -146,16 +145,36 @@ public class CommissionsProvider extends ContentProvider {
         SQLiteDatabase database = mDBHelper.getWritableDatabase();
 
         final int match = sUriMatcher.match(uri);
+        int rowsDeleted;
         switch (match) {
             case COMMISSIONS:
 
+                // Perform the delete on the database and get the number of rows affected
+                rowsDeleted = database.delete(TABLE_NAME, selection, selectionArgs);
+
+                // If 1 or more rows were deleted, then notify all listeners that the data at the
+                // given URI has changed
+                if (rowsDeleted != 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+
                 // Delete all rows that match the selection and selection args
-                return database.delete(TABLE_NAME, selection, selectionArgs);
+                return rowsDeleted;
 
             case COMMISSIONS_ID:
                 // Delete a single row given by the ID in the URI
                 selection = CommissionContract.CommissionEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+
+                // Perform the delete on the database and get the number of rows affected
+                rowsDeleted = database.delete(CommissionContract.CommissionEntry.TABLE_NAME,
+                        selection, selectionArgs);
+
+                // If 1 or more rows were deleted, then notify all listeners that the data at the
+                // given URI has changed
+                if (rowsDeleted != 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
 
                 return database.delete(TABLE_NAME, selection, selectionArgs);
 

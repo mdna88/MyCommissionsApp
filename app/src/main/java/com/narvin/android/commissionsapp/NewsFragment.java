@@ -2,7 +2,6 @@ package com.narvin.android.commissionsapp;
 
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -19,8 +18,6 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -46,7 +43,11 @@ public class NewsFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
+
+        // Hide option menu for this fragment
         menu.findItem(R.id.action_delete_all).setVisible(false);
+        menu.findItem(R.id.action_clear_all).setVisible(false);
+
         super.onPrepareOptionsMenu(menu);
     }
 
@@ -144,21 +145,8 @@ public class NewsFragment extends Fragment implements LoaderManager.LoaderCallba
 
             swipeRefreshLayout.setRefreshing(false);
 
-        } else {
-
         }
 
-    }
-
-    //Used to convert Images to thumbnails from JSON parse
-    public static Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "thumbnail");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
     }
 
     // Checks internet connectivity.
@@ -171,9 +159,8 @@ public class NewsFragment extends Fragment implements LoaderManager.LoaderCallba
 
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
             return true;
-        } else {
-            return false;
         }
+            return false;
     }
 
     @Override
