@@ -84,6 +84,9 @@ public class CommissionsProvider extends ContentProvider {
                 throw new IllegalArgumentException("Cannot query URI " + uri);
         }
 
+        // If the data at this URI changes, then we know we need to update the Cursor.
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+
         return cursor;
     }
 
@@ -112,7 +115,6 @@ public class CommissionsProvider extends ContentProvider {
             case COMMISSIONS:
 
                 Uri resultUri = insertNewItem(uri, values);
-                getContext().getContentResolver().notifyChange(uri, null);
 
                 return resultUri;
             default:
@@ -135,6 +137,8 @@ public class CommissionsProvider extends ContentProvider {
             Log.e("Resolver", "Failed to insert row for " + uri);
             return null;
         }
+
+        getContext().getContentResolver().notifyChange(uri, null);
 
         return ContentUris.withAppendedId(uri, id);
     }

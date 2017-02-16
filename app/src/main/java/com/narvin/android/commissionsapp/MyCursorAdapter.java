@@ -149,13 +149,12 @@ public class MyCursorAdapter extends CursorAdapter {
         final Context context = parent;
         final int rowId = id;
         final int currentQuantity = quantity;
-        final TextView view = v;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        final View dialogView = inflater.inflate(R.layout.custom_dialog, (ViewGroup) v.getRootView());
+        View dialogView = inflater.inflate(R.layout.custom_dialog, (ViewGroup) v.getRootView(), false);
         dialogBuilder.setView(dialogView);
 
         final EditText edt = (EditText) dialogView.findViewById(R.id.edit1);
@@ -186,6 +185,7 @@ public class MyCursorAdapter extends CursorAdapter {
             }
         });
         AlertDialog b = dialogBuilder.create();
+
         b.show();
 
         return null;

@@ -131,7 +131,7 @@ public class DetailFragment extends Fragment {
                                         null,
                                         null);
 
-                                detailQuantity.setText("0");
+                                detailQuantity.setText("Quantity Sold: $0.00");
                                 detailTotal.setText("$0.00");
                             }
                         })

@@ -1,10 +1,10 @@
 package com.narvin.android.commissionsapp;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -51,7 +51,7 @@ public class AddActivity extends AppCompatActivity {
         String commissionValue = valueView.getText().toString();
 
         //Check if user input is not empty string
-        if (!commissionName.equals("") && !commissionValue.equals("")) {
+        if (!TextUtils.isEmpty(commissionName) && !TextUtils.isEmpty(commissionValue)) {
 
             //Case for flat rate commission
             if (fixedValueButton.isChecked()) {

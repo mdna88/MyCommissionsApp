@@ -225,7 +225,8 @@ public class CommissionsFragment extends Fragment implements
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
-
+        // Reset the adapter, preparing it for the new data
+        mCursorAdapter.swapCursor(null);
 
     }
 }
